@@ -138,7 +138,7 @@
             console.log("Raj141112"+brand_html);
             brand_html = brand_html.trim()
             if(brand_html == ''){
-              $( ".manufacturer_list").html('<div class="content"> <div onclick="togglePopup()" class="close-btn">× </div><p>Designer not found!</p> <p class="viewall"><a href="https://www.upstyle.io/pages/shop-by-brand/">View All</a></p></div>');
+              $( ".manufacturer_list").html('<div class="content"> <div onclick="togglePopup()" class="close-btn">× </div><p>Designer not found!</p> <p class="viewall"><a href="https://www.upstyle.io/pages/shop-by-designer/">View All</a></p></div>');
             }
           }, 1000);
         }
