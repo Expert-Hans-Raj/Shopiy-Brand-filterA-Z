@@ -1,0 +1,155 @@
+<div class="page-width">
+  <div class="grid">
+    <div class="medium-up--five-sixths medium-up--push-one-twelfth">
+      <div class="section-header text-center">
+        <h2>{{ page.title }}</h2>
+      </div>
+      <div class="by_designer">
+        <ul id="manufacturer_char_filter" class="my_7">
+          <li><a href="/pages/shop-by-designer">All</a></li>
+          <li><a href="/pages/shop-by-designer/a">A</a></li>
+          <li><a href="/pages/shop-by-designer/b">B</a></li>
+          <li><a href="/pages/shop-by-designer/c">C</a></li>
+          <li><a href="/pages/shop-by-designer/d">D</a></li>
+          <li><a href="/pages/shop-by-designer/e">E</a></li>
+          <li><a href="/pages/shop-by-designer/f">F</a></li>
+          <li><a href="/pages/shop-by-designer/g">G</a></li>
+          <li><a href="/pages/shop-by-designer/h">H</a></li>
+          <li><a href="/pages/shop-by-designer/i">I</a></li>
+          <li><a href="/pages/shop-by-designer/j">J</a></li>
+          <li><a href="/pages/shop-by-designer/k">K</a></li>
+          <li><a href="/pages/shop-by-designer/l">L</a></li>
+          <li><a href="/pages/shop-by-designer/m">M</a></li>
+          <li><a href="/pages/shop-by-designer/n">N</a></li>
+          <li><a href="/pages/shop-by-designer/o">O</a></li>
+          <li><a href="/pages/shop-by-designer/p">P</a></li>
+          <li><a href="/pages/shop-by-designer/q">Q</a></li>
+          <li><a href="/pages/shop-by-designer/r">R</a></li>
+          <li><a href="/pages/shop-by-designer/s">S</a></li>
+          <li><a href="/pages/shop-by-designer/t">T</a></li>
+          <li><a href="/pages/shop-by-designer/u">U</a></li>
+          <li><a href="/pages/shop-by-designer/v">V</a></li>
+          <li><a href="/pages/shop-by-designer/w">W</a></li>
+          <li><a href="/pages/shop-by-designer/x">X</a></li>
+          <li><a href="/pages/shop-by-designer/y">Y</a></li>
+          <li><a href="/pages/shop-by-designer/z">Z</a></li>
+        </ul>   
+      </div>
+      <div class="main-wraper">
+        <div data-test="advertisment-area" role="link" class="_b329e3">
+          <a href="{{ section.settings.imgurl }}"><img src="{{section.settings.img | img_url : "original"}}"></a>
+          <p class="text">{{ section.settings.text}}</p>
+        </div>
+        <div class="rtes">
+          <div id="shopify-section-shop-by-brand" class="shopify-section">
+            <div class="shop-by-brand text-center"> 
+              <div class="listing_brand grid grid--uniform grid--view-items manufacturer_list">
+                {% for block in section.blocks %}
+                <div data-title="{{ block.settings.designer_name |  slice: 0 | downcase }}" class="manufacturer_list_brand brand_title-{{ block.settings.designer_name |  slice: 0 | downcase }} grid__item grid__item--shop-by-brand small--one-half medium-up--one-quarter">
+                  <div class="brand_new_section">
+                    <div class="manufacturer_name">
+                      <a href="{% if block.settings.linkurl != blank %}{{ block.settings.linkurl }} {% else %}/{% endif %}" title="AG Neovo">
+                        {% if block.settings.designer_name != blank %}
+                        {{ block.settings.designer_name }}
+                        {% endif %}
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+"name": "Shop By Designer",
+"settings": [
+{
+"id": "img",
+"type": "image_picker",
+"label": "Add Banner Image"
+},
+{
+"id": "imgurl",
+"type": "url",
+"label": "Designer CTA"
+},
+{
+"id": "text",
+"type": "text",
+"label": "Add Information",
+"default":"In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without"
+}
+],
+"blocks": [
+{
+"type": "text",
+"name": "DesignerName",
+"settings": [
+{
+"id": "designer_name",
+"type": "text",
+"label": "Designer Name",
+"default":"A BATHING APE®"
+},
+{
+"id": "linkurl",
+"type": "url",
+"label": "Designer CTA"
+}
+]
+}]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
+<script>
+  $(document).ready(function(){
+    var pathname = window.location.pathname;
+
+    pathname = pathname.split('/')
+    //alert(pathname);
+    if( pathname.length == 4 ){
+
+      var lengths = pathname.length;
+      var result = pathname[lengths - 1];
+
+      $( ".manufacturer_list .manufacturer_list_brand" ).each(function( index ) {
+        var title = $(this).data('title');
+
+        if( title == result ){
+          //console.log(title);
+          $('.manufacturer_list_brand').not('.brand_title-'+result).remove();
+        }
+        else{
+          // console.log("Hans"+title);
+          $('.manufacturer_list_brand').not('.brand_title-'+result).remove();
+          setTimeout(function(){
+            var brand_html = $( ".manufacturer_list").html();
+            console.log("Raj141112"+brand_html);
+            brand_html = brand_html.trim()
+            if(brand_html == ''){
+              $( ".manufacturer_list").html('<div class="content"> <div onclick="togglePopup()" class="close-btn">× </div><p>Designer not found!</p> <p class="viewall"><a href="https://www.upstyle.io/pages/shop-by-brand/">View All</a></p></div>');
+            }
+          }, 1000);
+        }
+      });
+    }
+  })
+</script>
+<script type="text/javascript">
+      
+        // Function to show and hide the popup
+        function togglePopup() {
+            $(".content").toggle();
+        }
+    </script>
